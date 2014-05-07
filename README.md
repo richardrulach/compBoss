@@ -1,4 +1,12 @@
-compBoss
-========
+# Compression Boss #
 
-Compression Boss - Windows Application
+## Overview ##
+	This application provides a windows front-end
+	to the YUI Compressor for CSS and JS files
+
+
+## /docs ##
+	Documentation
+
+## /src ##
+	All the source code
