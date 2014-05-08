@@ -3,16 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CompressionBoss", "CompressionBoss.vbproj", "{5BE0BD0E-FA84-4C8F-AE49-357706D88301}"
 EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "CompressionBossInstaller", "..\CompressionBossInstaller\CompressionBossInstaller.isproj", "{D1F6B490-1FC6-418F-9F9D-86E5609246B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
 		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE0BD0E-FA84-4C8F-AE49-357706D88301}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.Debug|Any CPU.ActiveCfg = DVD-5
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.Debug|Any CPU.Build.0 = DVD-5
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.DVD-5|Any CPU.Build.0 = DVD-5
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.Release|Any CPU.ActiveCfg = SingleImage
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.Release|Any CPU.Build.0 = SingleImage
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{D1F6B490-1FC6-418F-9F9D-86E5609246B0}.SingleImage|Any CPU.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

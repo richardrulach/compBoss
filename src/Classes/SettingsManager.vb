@@ -1,19 +1,29 @@
 ﻿Imports System.IO
 
+Public Structure FileSetting
+    Public sourceFileName As String
+    Public outputFileName As String
+    Public lastProcessed As DateTime
+End Structure
 
 Public Class SettingsManager
 
+#Region "Private Properties"
     Private cwdString As String = String.Empty
     Private strCurrentSettingsFile As String = String.Empty
+    Private FileSettingsArray As ArrayList = New ArrayList()
+#End Region
 
+#Region "Constructors"
     Public Sub New()
         ' initialise logfile if it isn't there.
         cwdString = Directory.GetCurrentDirectory
-        Console.WriteLine(cwdString)
+        Console.WriteLine("cwd = " + cwdString)
 
         CheckSettingsFile()
         LoadSettingsFile()
     End Sub
+#End Region
 
 #Region "Private Subs/Functions"
 
@@ -31,6 +41,17 @@ Public Class SettingsManager
         End If
 
         strCurrentSettingsFile = cwdString + "\Settings\CompressionBoss.settings"
+
+        'Dim a As FileSetting
+
+        'a = New FileSetting
+        'a.sourceFileName = "source 1"
+        'a.outputFileName = "output 1"
+
+        'For i As Int32 = 1 To 20
+        '    FileSettingsArray.Add(a)
+        'Next
+
     End Sub
 
     '  Load the settings from the file
@@ -51,6 +72,24 @@ Public Class SettingsManager
 
 #Region "Public Subs/Functions"
     ' write the text to the log file
+
+    Public Sub AddSourceFile(filePath As String)
+        Console.WriteLine("filepath = " + filePath)
+
+        If File.Exists(filePath) Then
+            Dim newFile As FileSetting
+            Dim lFile As New FileInfo(filePath)
+            newFile.sourceFileName = filePath
+            newFile.outputFileName = _
+                lFile.DirectoryName + "\" + _
+                lFile.Name.Substring(0, lFile.Name.Length - lFile.Extension.Length) + _
+                ".min" + lFile.Extension
+            FileSettingsArray.Add(newFile)
+        Else
+            Console.Write("File does not exist: " + filePath)
+        End If
+    End Sub
+
     Public Sub AddFileSetting(sText As String)
 
     End Sub
@@ -58,6 +97,11 @@ Public Class SettingsManager
     Public Sub SaveSettings(sText As String)
 
     End Sub
+
+    Public Function GetSettings() As ArrayList
+        Return FileSettingsArray
+    End Function
+
 
     ' archive the settings file
     ' also perform maintenance - delete old settings files (over 1 week old)
