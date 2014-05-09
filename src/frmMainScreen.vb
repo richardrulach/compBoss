@@ -2,6 +2,7 @@
 
     Private settingsManager As SettingsManager
     Private logManager As LogManager
+    Private yuiCompressor As YUICompressor
 
 
 #Region "LOAD FORM"
@@ -10,15 +11,29 @@
 
         settingsManager = New SettingsManager()
         logManager = New LogManager()
+        yuiCompressor = New YUICompressor( _
+            System.IO.Directory.GetCurrentDirectory + "\yuicompressor-2.4.7.jar")
 
         ' Configure the DataGridView
         DataGridView1.Columns.Add("Source", "Source")
         DataGridView1.Columns.Add("Output", "Output")
-        DataGridView1.Columns.Add("Last activity", "Last activity")
 
-        DataGridView1.Columns(0).Width = 283
-        DataGridView1.Columns(1).Width = 283
-        DataGridView1.Columns(2).Width = 120
+        Dim btnChangeOutputColumn As New DataGridViewButtonColumn()
+        btnChangeOutputColumn.HeaderText = ""
+        btnChangeOutputColumn.Text = "Update Output"
+        btnChangeOutputColumn.UseColumnTextForButtonValue = True
+        DataGridView1.Columns.Add(btnChangeOutputColumn)
+
+        Dim btnDeleteColumn As New DataGridViewButtonColumn()
+        btnDeleteColumn.HeaderText = ""
+        btnDeleteColumn.Text = "Delete"
+        btnDeleteColumn.UseColumnTextForButtonValue = True
+        DataGridView1.Columns.Add(btnDeleteColumn)
+
+        DataGridView1.Columns(0).Width = 262
+        DataGridView1.Columns(1).Width = 262
+        DataGridView1.Columns(2).Width = 90
+        DataGridView1.Columns(3).Width = 90
 
         PopulateDataGrid()
     End Sub
@@ -48,9 +63,32 @@
         End If
     End Sub
 
-#End Region
 
     Private Sub btnRunCompression_Click(sender As Object, e As EventArgs) Handles btnRunCompression.Click
+        Dim data As ArrayList = settingsManager.GetSettings()
 
+        Me.Enabled = False
+        DataGridView1.Enabled = False
+        btnRunCompression.Enabled = False
+        btnAddFiles.Enabled = False
+        btnHelp.Enabled = False
+
+        For Each dataItem As FileSetting In data
+            yuiCompressor.CompressFile(dataItem.sourceFileName, dataItem.outputFileName)
+        Next
+        Me.Enabled = True
+        DataGridView1.Enabled = True
+        btnRunCompression.Enabled = True
+        btnAddFiles.Enabled = True
+        btnHelp.Enabled = True
+
+    End Sub
+
+#End Region
+
+
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+        MessageBox.Show(e.RowIndex.ToString + " " + e.ColumnIndex.ToString)
     End Sub
 End Class
