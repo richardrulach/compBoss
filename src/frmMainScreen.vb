@@ -43,12 +43,8 @@
     Private Sub PopulateDataGrid()
         DataGridView1.Rows.Clear()
         Dim data As ArrayList = settingsManager.GetSettings()
-        Dim dtString As String = String.Empty
         For Each dataItem As FileSetting In data
-            If dataItem.lastProcessed.Year < 2000 Then
-                dtString = String.Empty
-            End If
-            DataGridView1.Rows.Add(dataItem.sourceFileName, dataItem.outputFileName, dtString)
+            DataGridView1.Rows.Add(dataItem.sourceFileName, dataItem.outputFileName)
         Next
     End Sub
 #End Region
@@ -89,6 +85,14 @@
 
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        MessageBox.Show(e.RowIndex.ToString + " " + e.ColumnIndex.ToString)
+        Select Case e.ColumnIndex
+            Case 2 ' CHANGE OUTPUT
+
+            Case 3 ' DELETE
+                settingsManager.Delete(DataGridView1.Rows(e.RowIndex).Cells(0).Value,
+                                       DataGridView1.Rows(e.RowIndex).Cells(1).Value)
+                DataGridView1.Rows.RemoveAt(e.RowIndex)
+
+        End Select
     End Sub
 End Class

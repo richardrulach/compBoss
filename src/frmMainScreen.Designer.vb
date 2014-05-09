@@ -64,7 +64,7 @@ Partial Class frmCompressionBoss
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.Size = New System.Drawing.Size(709, 242)
-        Me.DataGridView1.TabIndex = 0
+        Me.DataGridView1.TabIndex = 5
         '
         'OpenFileDialog1
         '
@@ -75,7 +75,7 @@ Partial Class frmCompressionBoss
         Me.btnHelp.Location = New System.Drawing.Point(654, 11)
         Me.btnHelp.Name = "btnHelp"
         Me.btnHelp.Size = New System.Drawing.Size(75, 23)
-        Me.btnHelp.TabIndex = 3
+        Me.btnHelp.TabIndex = 4
         Me.btnHelp.Text = "Help"
         Me.btnHelp.UseVisualStyleBackColor = True
         '
@@ -85,7 +85,7 @@ Partial Class frmCompressionBoss
         Me.btnRunCompression.Location = New System.Drawing.Point(544, 11)
         Me.btnRunCompression.Name = "btnRunCompression"
         Me.btnRunCompression.Size = New System.Drawing.Size(104, 23)
-        Me.btnRunCompression.TabIndex = 4
+        Me.btnRunCompression.TabIndex = 3
         Me.btnRunCompression.Text = "Run"
         Me.btnRunCompression.UseVisualStyleBackColor = True
         '
@@ -95,7 +95,7 @@ Partial Class frmCompressionBoss
         Me.cmbAvailableProjects.Location = New System.Drawing.Point(136, 13)
         Me.cmbAvailableProjects.Name = "cmbAvailableProjects"
         Me.cmbAvailableProjects.Size = New System.Drawing.Size(175, 21)
-        Me.cmbAvailableProjects.TabIndex = 6
+        Me.cmbAvailableProjects.TabIndex = 1
         Me.cmbAvailableProjects.Text = "Choose from available projects"
         '
         'btnSaveAsNewProject
@@ -103,7 +103,7 @@ Partial Class frmCompressionBoss
         Me.btnSaveAsNewProject.Location = New System.Drawing.Point(317, 11)
         Me.btnSaveAsNewProject.Name = "btnSaveAsNewProject"
         Me.btnSaveAsNewProject.Size = New System.Drawing.Size(133, 23)
-        Me.btnSaveAsNewProject.TabIndex = 7
+        Me.btnSaveAsNewProject.TabIndex = 2
         Me.btnSaveAsNewProject.Text = "Save as new project"
         Me.btnSaveAsNewProject.UseVisualStyleBackColor = True
         '

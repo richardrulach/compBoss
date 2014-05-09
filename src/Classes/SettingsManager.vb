@@ -3,7 +3,6 @@
 Public Structure FileSetting
     Public sourceFileName As String
     Public outputFileName As String
-    Public lastProcessed As DateTime
 End Structure
 
 Public Class SettingsManager
@@ -12,6 +11,10 @@ Public Class SettingsManager
     Private cwdString As String = String.Empty
     Private strCurrentSettingsFile As String = String.Empty
     Private FileSettingsArray As ArrayList = New ArrayList()
+    Private ProjectsHash As Hashtable = New Hashtable()
+
+    Private currentProjectName As String = String.Empty
+
 #End Region
 
 #Region "Constructors"
@@ -42,15 +45,6 @@ Public Class SettingsManager
 
         strCurrentSettingsFile = cwdString + "\Settings\CompressionBoss.settings"
 
-        'Dim a As FileSetting
-
-        'a = New FileSetting
-        'a.sourceFileName = "source 1"
-        'a.outputFileName = "output 1"
-
-        'For i As Int32 = 1 To 20
-        '    FileSettingsArray.Add(a)
-        'Next
 
     End Sub
 
@@ -74,7 +68,6 @@ Public Class SettingsManager
     ' write the text to the log file
 
     Public Sub AddSourceFile(filePath As String)
-        Console.WriteLine("filepath = " + filePath)
 
         If File.Exists(filePath) Then
             Dim newFile As FileSetting
@@ -84,22 +77,67 @@ Public Class SettingsManager
                 lFile.DirectoryName + "\" + _
                 lFile.Name.Substring(0, lFile.Name.Length - lFile.Extension.Length) + _
                 ".min" + lFile.Extension
-            FileSettingsArray.Add(newFile)
+
+            CheckCurrentProject()
+
+            ProjectsHash(currentProjectName).add(newFile)
         Else
             Console.Write("File does not exist: " + filePath)
         End If
+
     End Sub
 
     Public Sub AddFileSetting(sText As String)
 
     End Sub
 
+    Public Function GetProjectNames() As String()
+        Return ProjectsHash.Keys
+    End Function
+
     Public Sub SaveSettings(sText As String)
+        Dim csvText As String = String.Empty
+        For Each s As String In ProjectsHash.Keys
+            For Each fs As FileSetting In ProjectsHash(s)
+                csvText += s + "," + fs.sourceFileName + "," + fs.outputFileName + vbCrLf
+            Next
+        Next
+
+        File.Delete(strCurrentSettingsFile)
+        File.WriteAllText(strCurrentSettingsFile, csvText)
+    End Sub
+
+    ' Checks the current project has a name and has an arraylist allocated to it.
+    Private Sub CheckCurrentProject()
+        If currentProjectName.Length = 0 Then
+            currentProjectName = "<NEW PROJECT>"
+        End If
+
+        If IsNothing(ProjectsHash(currentProjectName)) Then
+            ProjectsHash(currentProjectName) = New ArrayList()
+        End If
+    End Sub
+
+
+    Public Sub Delete(sSourceFile As String, sOutputFile As String)
+        CheckCurrentProject()
+
+        ' Remove if it matches the input and output parameters of the current project
+        For i = 0 To CType(ProjectsHash(currentProjectName), ArrayList).Count - 1
+            If CType(CType(ProjectsHash(currentProjectName), ArrayList)(i), FileSetting).sourceFileName = sSourceFile _
+               And CType(CType(ProjectsHash(currentProjectName), ArrayList)(i), FileSetting).outputFileName = sOutputFile _
+                Then
+                CType(ProjectsHash(currentProjectName), ArrayList).RemoveAt(i)
+                Exit For
+            End If
+        Next
 
     End Sub
 
     Public Function GetSettings() As ArrayList
-        Return FileSettingsArray
+        CheckCurrentProject()
+
+        Return ProjectsHash(currentProjectName)
     End Function
 
 
