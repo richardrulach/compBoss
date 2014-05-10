@@ -32,7 +32,7 @@ Partial Class frmCompressionBoss
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.btnRunCompression = New System.Windows.Forms.Button()
         Me.cmbAvailableProjects = New System.Windows.Forms.ComboBox()
-        Me.btnSaveAsNewProject = New System.Windows.Forms.Button()
+        Me.btnCreateNewProject = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -98,21 +98,21 @@ Partial Class frmCompressionBoss
         Me.cmbAvailableProjects.TabIndex = 1
         Me.cmbAvailableProjects.Text = "Choose from available projects"
         '
-        'btnSaveAsNewProject
+        'btnCreateNewProject
         '
-        Me.btnSaveAsNewProject.Location = New System.Drawing.Point(317, 11)
-        Me.btnSaveAsNewProject.Name = "btnSaveAsNewProject"
-        Me.btnSaveAsNewProject.Size = New System.Drawing.Size(133, 23)
-        Me.btnSaveAsNewProject.TabIndex = 2
-        Me.btnSaveAsNewProject.Text = "Save as new project"
-        Me.btnSaveAsNewProject.UseVisualStyleBackColor = True
+        Me.btnCreateNewProject.Location = New System.Drawing.Point(317, 11)
+        Me.btnCreateNewProject.Name = "btnCreateNewProject"
+        Me.btnCreateNewProject.Size = New System.Drawing.Size(133, 23)
+        Me.btnCreateNewProject.TabIndex = 2
+        Me.btnCreateNewProject.Text = "Create new project"
+        Me.btnCreateNewProject.UseVisualStyleBackColor = True
         '
         'frmCompressionBoss
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(739, 299)
-        Me.Controls.Add(Me.btnSaveAsNewProject)
+        Me.Controls.Add(Me.btnCreateNewProject)
         Me.Controls.Add(Me.cmbAvailableProjects)
         Me.Controls.Add(Me.btnRunCompression)
         Me.Controls.Add(Me.btnHelp)
@@ -135,6 +135,6 @@ Partial Class frmCompressionBoss
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents btnRunCompression As System.Windows.Forms.Button
     Friend WithEvents cmbAvailableProjects As System.Windows.Forms.ComboBox
-    Friend WithEvents btnSaveAsNewProject As System.Windows.Forms.Button
+    Friend WithEvents btnCreateNewProject As System.Windows.Forms.Button
 
 End Class

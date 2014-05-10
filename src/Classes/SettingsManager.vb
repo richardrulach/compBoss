@@ -51,7 +51,33 @@ Public Class SettingsManager
     '  Load the settings from the file
     '  Validate files - if they do not exist remove them from the settings file
     Private Sub LoadSettingsFile()
+        Using MyReader As New Microsoft.VisualBasic.
+                        FileIO.TextFieldParser(
+                          cwdString + "\Settings\CompressionBoss.settings")
+            MyReader.TextFieldType = FileIO.FieldType.Delimited
+            MyReader.SetDelimiters(",")
+            Dim currentRow As String()
+            While Not MyReader.EndOfData
+                Try
+                    currentRow = MyReader.ReadFields()
 
+                    If Not ProjectsHash.ContainsKey(currentRow(0)) Then
+                        ProjectsHash(currentRow(0)) = New ArrayList()
+                    End If
+
+                    Dim fs As FileSetting
+                    fs.sourceFileName = currentRow(1)
+                    fs.outputFileName = currentRow(2)
+
+                    CType(ProjectsHash(currentRow(0)), ArrayList).Add(fs)
+
+                Catch ex As Microsoft.VisualBasic.
+                            FileIO.MalformedLineException
+                    Console.WriteLine("Line " & ex.Message &
+                    "is not valid and will be skipped.")
+                End Try
+            End While
+        End Using
     End Sub
 
     Private Sub SaveSettingsFile()
@@ -66,6 +92,18 @@ Public Class SettingsManager
 
 #Region "Public Subs/Functions"
     ' write the text to the log file
+
+    Public Sub AddNewProject(ProjectName As String)
+        If Not ProjectsHash.ContainsKey(ProjectName) Then
+            ProjectsHash.Add(ProjectName, New ArrayList())
+        End If
+        currentProjectName = ProjectName
+    End Sub
+
+    Public Sub ChangeProject(ProjectName As String)
+        AddNewProject(ProjectName)
+    End Sub
+
 
     Public Sub AddSourceFile(filePath As String)
 
@@ -85,17 +123,15 @@ Public Class SettingsManager
             Console.Write("File does not exist: " + filePath)
         End If
 
+        SaveSettings()
     End Sub
 
-    Public Sub AddFileSetting(sText As String)
 
-    End Sub
-
-    Public Function GetProjectNames() As String()
+    Public Function GetProjectNames() As ICollection
         Return ProjectsHash.Keys
     End Function
 
-    Public Sub SaveSettings(sText As String)
+    Public Sub SaveSettings()
         Dim csvText As String = String.Empty
         For Each s As String In ProjectsHash.Keys
             For Each fs As FileSetting In ProjectsHash(s)
@@ -132,6 +168,7 @@ Public Class SettingsManager
             End If
         Next
 
+        SaveSettings()
     End Sub
 
     Public Function GetSettings() As ArrayList

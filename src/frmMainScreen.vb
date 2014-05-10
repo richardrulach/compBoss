@@ -36,6 +36,8 @@
         DataGridView1.Columns(3).Width = 90
 
         PopulateDataGrid()
+
+        PopulateProjectsCombo()
     End Sub
 #End Region
 
@@ -45,6 +47,14 @@
         Dim data As ArrayList = settingsManager.GetSettings()
         For Each dataItem As FileSetting In data
             DataGridView1.Rows.Add(dataItem.sourceFileName, dataItem.outputFileName)
+        Next
+    End Sub
+
+    Private Sub PopulateProjectsCombo()
+        Dim projects As ICollection = settingsManager.GetProjectNames()
+        cmbAvailableProjects.Items.Clear()
+        For Each s In projects
+            cmbAvailableProjects.Items.Add(s)
         Next
     End Sub
 #End Region
@@ -94,5 +104,20 @@
                 DataGridView1.Rows.RemoveAt(e.RowIndex)
 
         End Select
+    End Sub
+
+    Private Sub btnCreateNewProject_Click(sender As Object, e As EventArgs) Handles btnCreateNewProject.Click
+        If frmNewProjectDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+            settingsManager.AddNewProject(frmNewProjectDialog.getProjectName)
+            PopulateProjectsCombo()
+            cmbAvailableProjects.SelectedValue = frmNewProjectDialog.getProjectName
+        End If
+    End Sub
+
+    Private Sub cmbAvailableProjects_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAvailableProjects.SelectedIndexChanged
+        If Not IsNothing(cmbAvailableProjects.SelectedItem) Then
+            settingsManager.ChangeProject(cmbAvailableProjects.SelectedItem)
+            PopulateDataGrid()
+        End If
     End Sub
 End Class
