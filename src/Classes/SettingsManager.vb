@@ -80,9 +80,6 @@ Public Class SettingsManager
         End Using
     End Sub
 
-    Private Sub SaveSettingsFile()
-
-    End Sub
 
 
 #End Region
@@ -102,6 +99,20 @@ Public Class SettingsManager
 
     Public Sub ChangeProject(ProjectName As String)
         AddNewProject(ProjectName)
+    End Sub
+
+    Public Sub UpdateOutput(source As String, output As String)
+        Dim aList As New ArrayList()
+        Dim updated As Boolean = False
+        For Each fs As FileSetting In ProjectsHash(currentProjectName)
+            If fs.sourceFileName = source And Not updated Then
+                fs.outputFileName = output
+                updated = True
+            End If
+            aList.Add(fs)
+        Next
+        ProjectsHash(currentProjectName) = aList
+        SaveSettings()
     End Sub
 
 

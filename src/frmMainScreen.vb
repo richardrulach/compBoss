@@ -69,7 +69,6 @@
         End If
     End Sub
 
-
     Private Sub btnRunCompression_Click(sender As Object, e As EventArgs) Handles btnRunCompression.Click
         Dim data As ArrayList = settingsManager.GetSettings()
 
@@ -90,14 +89,15 @@
 
     End Sub
 
-#End Region
-
-
-
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         Select Case e.ColumnIndex
             Case 2 ' CHANGE OUTPUT
-
+                If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                    settingsManager.UpdateOutput( _
+                        DataGridView1.Rows(e.RowIndex).Cells(0).Value, _
+                        SaveFileDialog1.FileName)
+                    DataGridView1.Rows(e.RowIndex).Cells(1).Value = SaveFileDialog1.FileName
+                End If
             Case 3 ' DELETE
                 settingsManager.Delete(DataGridView1.Rows(e.RowIndex).Cells(0).Value,
                                        DataGridView1.Rows(e.RowIndex).Cells(1).Value)
@@ -120,4 +120,7 @@
             PopulateDataGrid()
         End If
     End Sub
+
+#End Region
+
 End Class
