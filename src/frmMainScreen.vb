@@ -10,6 +10,7 @@
     Private Sub frmCompressionBoss_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         settingsManager = New SettingsManager()
+
         logManager = New LogManager()
         yuiCompressor = New YUICompressor( _
             System.IO.Directory.GetCurrentDirectory + "\yuicompressor-2.4.7.jar")
@@ -35,6 +36,17 @@
         DataGridView1.Columns(2).Width = 90
         DataGridView1.Columns(3).Width = 90
 
+        If settingsManager.GetProjectNames().Count = 0 Then
+            If frmNewProjectDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+                settingsManager.AddNewProject(frmNewProjectDialog.getProjectName)
+                PopulateProjectsCombo()
+                For i = 0 To cmbAvailableProjects.Items.Count
+                    If cmbAvailableProjects.Items(i) = settingsManager.GetCurrentProject() Then
+                        cmbAvailableProjects.SelectedIndex = i
+                    End If
+                Next
+            End If
+        End If
         PopulateDataGrid()
 
         PopulateProjectsCombo()

@@ -88,6 +88,11 @@ Public Class SettingsManager
 
 
 #Region "Public Subs/Functions"
+
+    Public Function GetCurrentProject() As String
+        Return currentProjectName
+    End Function
+
     ' write the text to the log file
 
     Public Sub AddNewProject(ProjectName As String)
